@@ -1,7 +1,7 @@
 
 const ADD_POST = "ADD_POST";
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
-
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 export type PostType = {
     id: number,
     message: string | undefined,
@@ -10,10 +10,31 @@ export type PostType = {
 
 export type PostDataType = Array<PostType>
 
+export type ProfileAPIType = {
+    aboutMe : string,
+    contacts : {
+        facebook :  string | null,
+        website : string | null,
+        vk :  string | null,
+        twitter : string | null,
+        instagram : string | null,
+        youtube : string | null,
+        github : string | null,
+        mainLink : string | null,
+    },
+    lookingForAJob : boolean,
+    lookingForAJobDescription : string,
+    fullName : string,
+    userId : number,
+    photos : {
+        small : string |  undefined,
+        large : string |  undefined
+    }
+}
 export type ProfilePageStateType = {
     newPostText: any
     posts: PostDataType
-
+    profile : ProfileAPIType | null | string | undefined
 }
 
 const initialState : ProfilePageStateType= {
@@ -21,7 +42,8 @@ const initialState : ProfilePageStateType= {
     posts: [
         { id: 1, message: 'hi muder fucker', likesCount: 1 },
         { id: 2, message: 'hi muder fucker', likesCount: 1 },
-    ]
+    ],
+    profile : null
 }
 
 type AddPostActioCreatorType = {
@@ -31,10 +53,15 @@ type AddPostActioCreatorType = {
 
 type UpdateNewPostTextActionCreatorType = {
     type: string,
-    payload: string
+    payload?: string
 }
 
-type ActionProfileType = AddPostActioCreatorType | UpdateNewPostTextActionCreatorType
+type ProfileAPITypeActionCreator = {
+    type: string,
+    payload? : ProfileAPIType | string
+}
+
+type ActionProfileType = AddPostActioCreatorType | UpdateNewPostTextActionCreatorType | ProfileAPITypeActionCreator
 
 const profileReducer = (state: ProfilePageStateType = initialState, action: ActionProfileType): ProfilePageStateType => {
     switch (action.type) {
@@ -59,7 +86,11 @@ const profileReducer = (state: ProfilePageStateType = initialState, action: Acti
                 newPostText : action.payload
             }
         }
-
+        case SET_USER_PROFILE :
+            return {
+                ...state,
+                profile : action.payload
+            }
         default:
             return state
     }
@@ -68,5 +99,6 @@ const profileReducer = (state: ProfilePageStateType = initialState, action: Acti
 
 export const addPostAC = (): AddPostActioCreatorType => ({ type: ADD_POST })
 export const updateNewPostTextAC = (payload: string): UpdateNewPostTextActionCreatorType => ({ type: UPDATE_NEW_POST_TEXT, payload})
+export const setUserProfile = (profile : ProfileAPIType ) : ProfileAPITypeActionCreator  => ({type : SET_USER_PROFILE, payload : profile})
 
 export default profileReducer

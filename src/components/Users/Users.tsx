@@ -1,6 +1,6 @@
-import axios from 'axios'
-import React from 'react'
+
 import { UsersStateType } from '../../state/usersReducer'
+import { NavLink } from 'react-router-dom'
 
 
 
@@ -37,11 +37,13 @@ const Users = (props: UsersPropsType) => {
                     }
                 </div>
                 {
-                    props.users.map((user: any) => {
+                    props.users.map((user : any) => {
                         return <div key={user.id}>
                             <span>
                                 <div>
+                                    <NavLink to={'/profile/' + user.id}>
                                     <img width={120} src={user.photos.small === null ? 'https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png' : user.photos.small} />
+                                    </NavLink>
                                 </div>
                                 <div>
                                     {user.followed

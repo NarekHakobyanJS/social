@@ -1,11 +1,21 @@
-import React from 'react'
 import './Header.css'
+import { NavLink } from 'react-router-dom'
 
-const Header = (props : any) => {
+
+type HeaderPropsType = {
+  isAuth: boolean
+  login: string
+}
+const Header = (props: HeaderPropsType) => {
   return (
     <header>
       <h1>logo</h1>
-     </header>
+      <div className='loginBlock'>
+        {
+          props.isAuth ? <h5>{props.login}</h5> : <NavLink to={'/login'}>login</NavLink>
+        }
+      </div>
+    </header>
   )
 }
 

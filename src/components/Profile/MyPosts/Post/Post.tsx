@@ -1,8 +1,8 @@
 import React from 'react'
-import { PostType } from '../../../../state/state'
+
 
 type PostPropsType = {
-    post : PostType
+    post : any
 }
 const Post = ({post} : PostPropsType) => {
   return (

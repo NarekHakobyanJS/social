@@ -1,16 +1,10 @@
 import React, { useRef, ChangeEvent } from 'react'
 import Post from './Post/Post'
-import { PostDataType } from '../../../state/state'
-import { addPostAC, updateNewPostTextAC } from '../../../state/profileReducer'
 
-
-// updateNewPostText={onPostChange}
-//                 addPost={addPost}
-//                 posts={props.posts}
-//                 newPostText={props.newPostText}
+           
 
 type MyPostsPropsType = {
-    posts: PostDataType,
+    posts: any,
     newPostText: string | undefined
     updateNewPostText : (text : string) => void
     addPost : () => void
@@ -41,7 +35,7 @@ const MyPosts = (props: MyPostsPropsType ) => {
                 <button onClick={onAddPost}>add post</button>
             </div>
             {
-                props.posts.map((post) => {
+                props.posts.map((post : any) => {
                     return <Post key={post.id} post={post} />
                 })
             }

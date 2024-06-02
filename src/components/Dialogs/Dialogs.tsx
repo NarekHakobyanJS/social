@@ -2,10 +2,9 @@ import React, {ChangeEvent} from 'react'
 import './Dialogs.css'
 import DialogsItem from './DialogsItem/DialogsItem'
 import Message from './Message/Message'
-import { DialogsPageStateType } from '../../state/state';
 
 type DialogsPropsType = {
-    dialogsPage : DialogsPageStateType
+    dialogsPage : any
     updateNewMessageBody : (body : string) => void
     sendMessage : () => void
     
@@ -28,7 +27,7 @@ const Dialogs = (props: DialogsPropsType ) => {
         <div className='dialogs'>
             <div>
                 {
-                    dialogs.map((dialog) => {
+                    dialogs.map((dialog : any) => {
                         return <DialogsItem key={dialog.id} dialog={dialog}/>
                     })
                 }
@@ -40,7 +39,7 @@ const Dialogs = (props: DialogsPropsType ) => {
                     <button onClick={onSendMessageClick}>send</button>
                 </div>
                 {
-                    messages.map((message) => {
+                    messages.map((message : any) => {
                         return <Message key={message.id} message={message} />
                     })
                 }
